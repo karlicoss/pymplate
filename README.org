@@ -1,0 +1,8 @@
+My Python project template
+
+* CI
+** running CI locally: use `act` (e.g. try with `act -l`)
+
+
+* Deploying
+** add `TWINE_PASSWORD` and `TWINE_PASSWORD_TEST` in secrets
