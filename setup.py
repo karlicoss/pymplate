@@ -3,15 +3,14 @@ author = 'TODO'
 author_email = 'todo@todo.com'
 description = 'TODO'
 
+install_requires = [
+]
 
-from setuptools import setup, find_packages
+
+from setuptools import setup, find_packages # type: ignore
 
 
-if __name__ == '__main__':
-    # from setuptools_scm import get_version
-    # https://github.com/pypa/setuptools_scm#default-versioning-scheme
-    # get_version(version_scheme='python-simplified-semver', local_scheme='no-local-version')
-   
+def main():
     [pkg] = find_packages('src')
     setup(
         name=pkg,
@@ -28,10 +27,19 @@ if __name__ == '__main__':
 
         packages=[pkg],
         package_dir={'': 'src'},
-        install_requires=['atomicwrites'],
+        package_data={pkg: ['py.typed']},
+
+        install_requires=install_requires,
         extras_require={
             'testing': ['pytest'],
             'linting': ['pytest', 'mypy', 'pylint'],
         },
-        package_data={pkg: ['py.typed']},
     )
+
+if __name__ == '__main__':
+    main()
+
+# TODO
+# from setuptools_scm import get_version
+# https://github.com/pypa/setuptools_scm#default-versioning-scheme
+# get_version(version_scheme='python-simplified-semver', local_scheme='no-local-version')

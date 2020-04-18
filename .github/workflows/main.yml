@@ -26,8 +26,7 @@ jobs:
     # uncomment for SSH debugging
     # - uses: mxschmitt/action-tmate@v2
 
-    # TODO extract in a script
-    - run: pip3 install --user tox && tox
+    - run: scripts/ci/run
 
     # TODO build it on this step??
     # use needs?
