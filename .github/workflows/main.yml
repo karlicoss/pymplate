@@ -1,3 +1,5 @@
+# see https://github.com/karlicoss/pymplate for up-to-date reference
+
 name: CI
 on: [push]
 
@@ -58,5 +60,4 @@ jobs:
         TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
       run: pip3 install --user wheel twine && scripts/release
 
-# TODO add a link to pymplate repo
 # todo generate mypy coverage artifacts?

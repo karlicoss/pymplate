@@ -1,17 +1,12 @@
-url = 'https://github.com/TODO'
-author = 'TODO'
-author_email = 'todo@todo.com'
-description = 'TODO'
-
-install_requires = [
-]
+# see https://github.com/karlicoss/pymplate for up-to-date reference
 
 
 from setuptools import setup, find_packages # type: ignore
 
 
 def main():
-    [pkg] = find_packages('src')
+    pkgs = find_packages('src')
+    [pkg] = pkgs
     setup(
         name=pkg,
         use_scm_version={
@@ -20,22 +15,27 @@ def main():
         },
         setup_requires=['setuptools_scm'],
 
-        url=url,
-        author=author,
-        author_email=author_email,
-        description=description,
+        zip_safe=False,
 
         packages=[pkg],
         package_dir={'': 'src'},
         package_data={pkg: ['py.typed']},
 
-        install_requires=install_requires,
+        ## ^^^ this should be mostly automatic and not requiring any changes
+
+        url='https://github.com/TODO',
+        author='TODO',
+        author_email='todo@todo.com',
+        description='TODO',
+        # TODO include readme so pip has it?
+        # Rest of the stuff -- classifiers, license, etc, I don't think it matters for PIP
+        # it's just unnecessary duplication
+
+        install_requires=[],
         extras_require={
             'testing': ['pytest'],
             'linting': ['pytest', 'mypy', 'pylint'],
         },
-
-        zip_safe=False,
     )
 
 
