@@ -1,8 +1,12 @@
 My Python project template
 
 * CI
-** running CI locally: use `act` (e.g. try with `act -l`)
+** running CI locally: use [[https://github.com/nektos/act][=act=]] (e.g. try with =act -l=)
 
 
 * Deploying
-** add `TWINE_PASSWORD` and `TWINE_PASSWORD_TEST` in secrets
+** add =TWINE_PASSWORD= and =TWINE_PASSWORD_TEST= in [[https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets#creating-encrypted-secrets][secrets]]
+
+
+* TODO
+** TODO maybe generate github actions config and have a literal readme?

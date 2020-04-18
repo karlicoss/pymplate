@@ -33,16 +33,19 @@ jobs:
     # TODO build it on this step??
     # use needs?
 
-    # always deploy merged master to test pypi
-    - if: github.event.ref == 'refs/heads/master'
+    - name: 'release to test pypi'
+      # always deploy merged master to test pypi
+      if: github.event.ref == 'refs/heads/master'
       env:
         TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD_TEST }}
       run: |
         pip3 install wheel twine
         scripts/release --test
 
-    # always deploy tags to release pypi
-    - if: startsWith(github.event.ref, 'refs/tags')
+    - name: 'release to pypi'
+      # always deploy tags to release pypi
+      # TODO filter release tags only?
+      if: startsWith(github.event.ref, 'refs/tags')
       env:
         TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
       run: |
@@ -50,3 +53,4 @@ jobs:
         scripts/release
 
 # TODO add a link to pymplate repo
+# todo generate mypy coverage artifacts?
