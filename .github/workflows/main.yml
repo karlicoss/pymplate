@@ -15,6 +15,9 @@ jobs:
     - uses: actions/setup-python@v1
       with:
         python-version: ${{ matrix.python-version }}
+    
+    # fuck me. https://help.github.com/en/actions/reference/workflow-commands-for-github-actions#adding-a-system-path
+    - run: echo "::add-path::$HOME/.local/bin"
 
     - uses: actions/checkout@v2
       with:
@@ -24,11 +27,7 @@ jobs:
     # - uses: mxschmitt/action-tmate@v2
 
     # TODO extract in a script
-    - run: |
-        pip3 install tox
-        # I fucking hate CI services. I can't use --user install because .local/bin isn't in PATH
-
-        tox
+    - run: pip3 install --user tox && tox
 
     # TODO build it on this step??
     # use needs?
