@@ -34,7 +34,10 @@ def main():
             'testing': ['pytest'],
             'linting': ['pytest', 'mypy', 'pylint'],
         },
+
+        zip_safe=False,
     )
+
 
 if __name__ == '__main__':
     main()
