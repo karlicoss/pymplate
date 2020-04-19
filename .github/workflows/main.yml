@@ -3,6 +3,10 @@
 name: CI
 on: [push]
 
+env:
+  # useful for scripts & sometimes tests to know
+  CI: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
