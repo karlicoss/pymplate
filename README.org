@@ -1,13 +1,46 @@
-My Python project template
+My (somewhat opinionated) Python project template
+
+- minimal configuration in [[file:setup.py]], only setting the required fields
+ 
+  No one cares about PyPi keywords, descriptions etc.
+- uses pytest, mypy and pylint for checks
+- relies on [[file:tox.ini][tox]] for running tests and checks in isolation
+- uses Github Actions for CI
+
+  - can be used by anyone with Github account when they fork a project
+  - build matrix for multiple python versions
+  - trying to keep as little as possible in the CI configuration
+   
+    Because [[https://beepb00p.xyz/configs-suck.html][fuck]] yaml configs and learning yet another templating syntax
+- automatic PyPi deployments on new tags
 
 * CI
+- see [[file:.github/workflows/main.yml][the config]]
 - running CI locally: use [[https://github.com/nektos/act][=act=]] (e.g. try with =act -l=)
 
+* PyPi releases
 
-* Deploying
+#+begin_src python :results output drawer :exports results
+import imp
+m = imp.load_source('release', 'scripts/release')
+print(m.__doc__)
+#+end_src
 
-- add =TWINE_PASSWORD= and =TWINE_PASSWORD_TEST= in [[https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets#creating-encrypted-secrets][secrets]]
+#+RESULTS:
+:results:
 
+Run [[file:scripts/release][scripts/release]] to deploy Python package onto [[https://pypi.org][PyPi]] and [[https://test.pypi.org][test PyPi]].
 
-* TODO
-** TODO maybe generate github actions config and have a literal readme?
+The script expects =TWINE_PASSWORD= environment variable to contain the [[https://pypi.org/help/#apitoken][PyPi token]] (not the password!).
+
+The script can be run manually.
+It's also running as =pypi= job in [[file:.github/workflows/main.yml][Github Actions config]]. Packages are deployed on:
+- every master commit, onto test pypi
+- every new tag, onto production pypi
+
+You'll need to set =TWINE_PASSWORD= and =TWINE_PASSWORD_TEST= in [[https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets#creating-encrypted-secrets][secrets]]
+for Github Actions deployment to work.
+
+:end:
+
+# TODO maybe generate github actions config and have a literal readme?
