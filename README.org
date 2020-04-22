@@ -8,6 +8,10 @@ My (somewhat opinionated) Python project template
 - uses Github Actions for CI
 
   - can be used by anyone with Github account when they fork a project
+
+    UPD: ugh. Apparently github actions
+    [[https://github.community/t5/GitHub-Actions/Will-GitHub-Actions-support-pull-request-events-from-a-fork-to-a/td-p/44488][won't]] run against merge requests from the forked repositories (i.e. pretty much all merge request by other people).
+
   - build matrix for multiple python versions
   - trying to keep as little as possible in the CI configuration
    
