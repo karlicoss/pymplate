@@ -3,7 +3,7 @@ My (somewhat opinionated) Python project template
 - minimal configuration in [[file:setup.py]], only setting the required fields
  
   No one cares about PyPi keywords, descriptions etc.
-- uses pytest, mypy and pylint for checks
+- uses pytest and mypy for checks
 - relies on [[file:tox.ini][tox]] for running tests and checks in isolation
 - uses Github Actions for CI
 

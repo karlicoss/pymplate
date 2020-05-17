@@ -34,7 +34,7 @@ def main():
         install_requires=[],
         extras_require={
             'testing': ['pytest'],
-            'linting': ['pytest', 'mypy', 'pylint'],
+            'linting': ['pytest', 'mypy'],
         },
     )
 
