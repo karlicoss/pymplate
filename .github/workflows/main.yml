@@ -1,7 +1,12 @@
 # see https://github.com/karlicoss/pymplate for up-to-date reference
 
 name: CI
-on: [push]
+on:
+  push:
+    branches: '*'
+    tags: 'v[0-9]+.*' # only trigger on 'release' tags for PyPi
+    # Ideally I would put this in the pypi job... but github syntax doesn't allow for regexes there :shrug:
+    # P.S. fuck made up yaml DSLs.
 
 env:
   # useful for scripts & sometimes tests to know
