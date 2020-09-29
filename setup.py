@@ -24,19 +24,26 @@ def main():
 
         ## ^^^ this should be mostly automatic and not requiring any changes
 
-        url='https://github.com/TODO',
-        author='TODO',
-        author_email='todo@todo.com',
-        description='TODO',
-        # TODO include readme so pip has it?
-        # Rest of the stuff -- classifiers, license, etc, I don't think it matters for PIP
-        # it's just unnecessary duplication
+        install_requires=[
+            # vvv example of git repo dependency
+            # 'repo @ git+https://github.com/karlicoss/repo.git',
 
-        install_requires=[],
+            # vvv  example of local file dependency. yes, DUMMY is necessary for some reason
+            # 'repo @ git+file://DUMMY/path/to/repo',
+        ],
         extras_require={
             'testing': ['pytest'],
             'linting': ['pytest', 'mypy'],
         },
+
+
+        # url='',
+        # author='',
+        # author_email='',
+        # description='',
+
+        # Rest of the stuff -- classifiers, license, etc, I don't think it matters for pypi
+        # it's just unnecessary duplication
     )
 
 
