@@ -1,12 +1,13 @@
 # see https://github.com/karlicoss/pymplate for up-to-date reference
 
 
-from setuptools import setup, find_packages # type: ignore
+from setuptools import setup, find_namespace_packages # type: ignore
 
 
 def main():
-    pkgs = find_packages('src')
-    [pkg] = pkgs
+    # works with both ordinary and namespace packages
+    pkgs = find_namespace_packages('src')
+    pkg = min(pkgs) # lexicographically smallest is the correct one usually?
     setup(
         name=pkg,
         use_scm_version={
@@ -17,7 +18,7 @@ def main():
 
         zip_safe=False,
 
-        packages=[pkg],
+        packages=pkgs,
         package_dir={'': 'src'},
         package_data={pkg: ['py.typed']},
 
