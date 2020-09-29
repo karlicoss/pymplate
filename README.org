@@ -26,7 +26,7 @@ My (somewhat opinionated) Python project template
 
 #+begin_src python :results output drawer :exports results
 import imp
-m = imp.load_source('release', 'scripts/release')
+m = imp.load_source('release', '.ci/release')
 print(m.__doc__)
 #+end_src
 

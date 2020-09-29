@@ -7,6 +7,7 @@ on:
     tags: 'v[0-9]+.*' # only trigger on 'release' tags for PyPi
     # Ideally I would put this in the pypi job... but github syntax doesn't allow for regexes there :shrug:
     # P.S. fuck made up yaml DSLs.
+    # TODO cron?
 
 env:
   # useful for scripts & sometimes tests to know
@@ -36,7 +37,7 @@ jobs:
     # uncomment for SSH debugging
     # - uses: mxschmitt/action-tmate@v2
 
-    - run: scripts/ci/run
+    - run: .ci/run
 
   pypi:
     runs-on: ubuntu-latest
@@ -58,14 +59,14 @@ jobs:
       if: github.event.ref == 'refs/heads/master'
       env:
         TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD_TEST }}
-      run: pip3 install --user wheel twine && scripts/release --test
+      run: pip3 install --user wheel twine && .ci/release --test
 
     - name: 'release to pypi'
       # always deploy tags to release pypi
-      # TODO filter release tags only?
+      # NOTE: release tags are guarded by on: push: tags on the top
       if: startsWith(github.event.ref, 'refs/tags')
       env:
         TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
-      run: pip3 install --user wheel twine && scripts/release
+      run: pip3 install --user wheel twine && .ci/release
 
 # todo generate mypy coverage artifacts?
