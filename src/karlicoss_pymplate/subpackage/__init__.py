@@ -1,5 +1,6 @@
 def test():
-    assert True # dummy test
+    # dummy test. it's also useful to have regardless so pytest is configured early on (it fails on no tests)
+    assert True
 
 
 ## just check that mypy works

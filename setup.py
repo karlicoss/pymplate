@@ -20,6 +20,7 @@ def main():
 
         packages=pkgs,
         package_dir={'': 'src'},
+        # necessary so that package works with mypy
         package_data={pkg: ['py.typed']},
 
         ## ^^^ this should be mostly automatic and not requiring any changes
@@ -33,10 +34,11 @@ def main():
         ],
         extras_require={
             'testing': ['pytest'],
-            'linting': ['pytest', 'mypy'],
+            'linting': ['pytest', 'mypy', 'lxml'], # lxml for mypy coverage report
         },
 
 
+        # this needs to be set if you're planning to upload to pypi
         # url='',
         # author='',
         # author_email='',

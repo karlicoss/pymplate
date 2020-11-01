@@ -3,15 +3,11 @@ My (somewhat opinionated) Python project template
 - minimal configuration in [[file:setup.py]], only setting the required fields
  
   No one cares about PyPi keywords, descriptions etc.
-- uses pytest and mypy for checks
+- uses pytest and mypy (+coverage) for checks
 - relies on [[file:tox.ini][tox]] for running tests and checks in isolation
 - uses Github Actions for CI
 
-  - can be used by anyone with Github account when they fork a project
-
-    UPD: ugh. Apparently github actions
-    [[https://github.community/t5/GitHub-Actions/Will-GitHub-Actions-support-pull-request-events-from-a-fork-to-a/td-p/44488][won't]] run against merge requests from the forked repositories (i.e. pretty much all merge request by other people).
-
+  - make sure you can run CI against pull requests from other people (=workflow_dispatch=)
   - build matrix for multiple python versions
   - trying to keep as little as possible in the CI configuration
    

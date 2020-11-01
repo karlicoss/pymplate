@@ -8,6 +8,7 @@ on:
     # Ideally I would put this in the pypi job... but github syntax doesn't allow for regexes there :shrug:
     # P.S. fuck made up yaml DSLs.
     # TODO cron?
+  workflow_dispatch: # needed to trigger workflows manually
 
 env:
   # useful for scripts & sometimes tests to know
@@ -39,6 +40,12 @@ jobs:
 
     - run: .ci/run
 
+    - uses: actions/upload-artifact@v2
+      with:
+        name: .mypy-coverage
+        path: .mypy-coverage/
+
+
   pypi:
     runs-on: ubuntu-latest
     needs: [build] # add all other jobs here
@@ -68,5 +75,3 @@ jobs:
       env:
         TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
       run: pip3 install --user wheel twine && .ci/release
-
-# todo generate mypy coverage artifacts?
