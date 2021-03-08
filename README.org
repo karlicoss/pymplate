@@ -7,7 +7,8 @@ My (somewhat opinionated) Python project template
 - relies on [[file:tox.ini][tox]] for running tests and checks in isolation
 - uses Github Actions for CI
 
-  - make sure you can run CI against pull requests from other people (=workflow_dispatch=)
+  - make sure you can run CI against pull requests from other people (=pull_request= trigger)
+    Note that people who fork it need to go to "Actions" tab on their fork and click "I understand my workflows, go ahead and enable them".
   - build matrix for multiple python versions
   - trying to keep as little as possible in the CI configuration
    
