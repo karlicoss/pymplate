@@ -8,6 +8,7 @@ on:
     # Ideally I would put this in the pypi job... but github syntax doesn't allow for regexes there :shrug:
     # P.S. fuck made up yaml DSLs.
   pull_request: # needed to trigger on others' PRs
+  # Note that people who fork it need to go to "Actions" tab on their fork and click "I understand my workflows, go ahead and enable them".
   workflow_dispatch: # needed to trigger workflows manually
   # todo cron?
 
@@ -20,7 +21,7 @@ jobs:
     strategy:
       matrix:
         platform: [ubuntu-latest, macos-latest] # TODO windows-latest??
-        python-version: [3.6, 3.7, 3.8]
+        python-version: [3.6, 3.7, 3.8, 3.9]
 
     runs-on: ${{ matrix.platform }}
 
@@ -43,8 +44,8 @@ jobs:
 
     - uses: actions/upload-artifact@v2
       with:
-        name: .mypy-coverage_${{ matrix.platform }}_${{ matrix.python-version }}
-        path: .mypy-coverage/
+        name: .coverage.mypy_${{ matrix.platform }}_${{ matrix.python-version }}
+        path: .coverage.mypy/
 
 
   pypi:
