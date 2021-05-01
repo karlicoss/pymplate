@@ -54,7 +54,3 @@ def main() -> None:
 if __name__ == '__main__':
     main()
 
-# TODO
-# from setuptools_scm import get_version
-# https://github.com/pypa/setuptools_scm#default-versioning-scheme
-# get_version(version_scheme='python-simplified-semver', local_scheme='no-local-version')

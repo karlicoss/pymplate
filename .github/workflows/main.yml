@@ -38,7 +38,7 @@ jobs:
         submodules: recursive
 
     # uncomment for SSH debugging
-    # - uses: mxschmitt/action-tmate@v2
+    # - uses: mxschmitt/action-tmate@v3
 
     - run: .ci/run
 
