@@ -12,18 +12,15 @@ on:
   workflow_dispatch: # needed to trigger workflows manually
   # todo cron?
 
-env:
-  # useful for scripts & sometimes tests to know
-  CI: true
 
 jobs:
   build:
     strategy:
       matrix:
         platform: [ubuntu-latest, macos-latest] # TODO windows-latest??
-        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10']
-        # seems like 3.6 isn't available on their osx image anymore
-        exclude: [{platform: macos-latest, python-version: '3.6'}]
+        python-version: ['3.7', '3.8', '3.9', '3.10']
+        # vvv just an example of excluding stuff from matrix
+        # exclude: [{platform: macos-latest, python-version: '3.6'}]
 
     runs-on: ${{ matrix.platform }}
 
