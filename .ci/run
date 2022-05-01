@@ -12,13 +12,24 @@ fi
 
 if [ -n "${CI-}" ]; then
     # install OS specific stuff here
-    if [[ "$OSTYPE" == "darwin"* ]]; then
+    if   [[ "$OSTYPE" == "darwin"* ]]; then
         # macos
         :
+    elif [[ "$OSTYPE" == "cygwin" ]]; then
+        # windows on CI
+        :
     else
+        # must be linux?
         :
     fi
 fi
 
-pip3 install --user tox
-tox
+
+PY_BIN="python3"
+# some systems might have python pointing to python3
+if ! command -v python3 &> /dev/null; then
+    PY_BIN="python"
+fi
+
+"$PY_BIN" -m pip install --user tox
+"$PY_BIN" -m tox
