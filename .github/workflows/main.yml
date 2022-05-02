@@ -40,7 +40,7 @@ jobs:
     # - uses: mxschmitt/action-tmate@v3
 
     # explicit bash command is necessary for Windows CI runner, otherwise it thinks it's cmd...
-    - run: bash -eux .ci/run
+    - run: bash .ci/run
 
     - if: matrix.platform == 'ubuntu-latest'  # no need to compute coverage for other platforms
       uses: actions/upload-artifact@v2
