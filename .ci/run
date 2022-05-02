@@ -1,7 +1,8 @@
-#!/bin/bash -eu
+#!/bin/bash
+set -eu
 
 cd "$(dirname "$0")"
-cd ..
+cd .. # git root
 
 if ! command -v sudo; then
     # CI or Docker sometimes doesn't have it, so useful to have a dummy
@@ -12,16 +13,20 @@ fi
 
 if [ -n "${CI-}" ]; then
     # install OS specific stuff here
-    if   [[ "$OSTYPE" == "darwin"* ]]; then
+    case "$OSTYPE" in
+    darwin*) 
         # macos
         :
-    elif [[ "$OSTYPE" == "cygwin" ]]; then
-        # windows on CI
+        ;;
+    cygwin* | msys* | win*)
+        # windows
         :
-    else
+        ;;
+    *)
         # must be linux?
         :
-    fi
+        ;;
+    esac
 fi
 
 
