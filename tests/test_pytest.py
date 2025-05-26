@@ -1,18 +1,21 @@
 #!/usr/bin/env python3
 from __future__ import annotations
+
 # not using pytest here to avoid interference from actual pytest
 import contextlib
 import os
-from pathlib import Path
 import re
+import shlex
 import shutil
-import sys
 import subprocess
+import sys
+from collections.abc import Iterator
+from pathlib import Path
 from tempfile import TemporaryDirectory
-from typing import Iterator
 
 THISDIR = Path(__file__).absolute().parent
 GIT_ROOT = THISDIR.parent
+
 
 # only available since python 3.11
 class contextlib_chdir(contextlib.AbstractContextManager):
@@ -21,7 +24,7 @@ class contextlib_chdir(contextlib.AbstractContextManager):
         self._old_cwd = []
 
     def __enter__(self):
-        self._old_cwd.append(os.getcwd())
+        self._old_cwd.append(Path.cwd())
         os.chdir(self.path)
 
     def __exit__(self, *excinfo):
@@ -32,21 +35,25 @@ class contextlib_chdir(contextlib.AbstractContextManager):
 def fixture() -> Iterator[Path]:
     with TemporaryDirectory() as td:
         root = Path(td)
-        shutil.copy(GIT_ROOT / 'pytest.ini' , root / 'pytest.ini')
+        shutil.copy(GIT_ROOT / 'pytest.ini', root / 'pytest.ini')
         shutil.copy(GIT_ROOT / 'conftest.py', root / 'conftest.py')
+        # TODO overwrite consider namesspace pkgs here for now??
         shutil.copytree(THISDIR / 'testdata' / 'src', root / 'src')
         with contextlib_chdir(root):
             yield root
 
+
 def run(package: str) -> list[str]:
     # returns the tests that ran
-    output = subprocess.check_output([sys.executable, '-m', 'pytest', '--pyargs', package, '-s'], text=True, stderr=subprocess.STDOUT)
+    cmd = [sys.executable, '-m', 'pytest', '--pyargs', package, '-s']
+    print('pytest command: ', shlex.join(cmd), file=sys.stderr)
+    output = subprocess.check_output(cmd, text=True, stderr=subprocess.STDOUT, env={'PYTHONPATH': 'src', **os.environ})
     return sorted(re.findall(r'RUNNING ([\w.]+)', output))
 
 
 def test_basic() -> None:
     # should collect/run all tests
-    with fixture() as root:
+    with fixture() as _root:
         res = run('mypkg')
         assert res == [
             'doctest',
@@ -59,7 +66,7 @@ def test_basic() -> None:
 
 
 def test_subpackage_1() -> None:
-    with fixture() as root:
+    with fixture() as _root:
         res = run('mypkg.a')
         assert res == [
             'mypkg.a.aa.main',
@@ -68,7 +75,7 @@ def test_subpackage_1() -> None:
 
 
 def test_subpackage_2() -> None:
-    with fixture() as root:
+    with fixture() as _root:
         res = run('mypkg.a.aa')
         assert res == [
             'mypkg.a.aa.main',
@@ -76,7 +83,7 @@ def test_subpackage_2() -> None:
 
 
 def test_module_1() -> None:
-    with fixture() as root:
+    with fixture() as _root:
         res = run('mypkg.main')
         assert res == [
             'doctest',
@@ -86,7 +93,7 @@ def test_module_1() -> None:
 
 def test_module_2() -> None:
     # checks that it works with __init__.py
-    with fixture() as root:
+    with fixture() as _root:
         res = run('mypkg.c')
         assert res == [
             'mypkg.c',
@@ -104,6 +111,7 @@ def main() -> None:
     for test in tests:
         print("RUNNING", test)
         test()
+
 
 if __name__ == '__main__':
     main()
