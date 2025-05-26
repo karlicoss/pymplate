@@ -36,8 +36,6 @@ def fixture() -> Iterator[Path]:
     with TemporaryDirectory() as td:
         root = Path(td)
         shutil.copy(GIT_ROOT / 'pytest.ini', root / 'pytest.ini')
-        shutil.copy(GIT_ROOT / 'conftest.py', root / 'conftest.py')
-        # TODO overwrite consider namesspace pkgs here for now??
         shutil.copytree(THISDIR / 'testdata' / 'src', root / 'src')
         with contextlib_chdir(root):
             yield root

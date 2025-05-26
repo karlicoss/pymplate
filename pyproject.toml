@@ -26,7 +26,8 @@ optional = []
 
 [dependency-groups]
 testing = [
-    "pytest",
+    "pytest @ git+https://github.com/karlicoss/pytest@pyargs-namespace-packages",
+    # "pytest",
     "ruff",
     "mypy",
     "lxml",  # for mypy html coverage
