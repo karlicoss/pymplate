@@ -7,6 +7,7 @@ if typing.TYPE_CHECKING:
 
 
 def test_module_name() -> None:
+    assert __package__ == 'karlicoss_pymplate'
     # just in case because pytest might have some shenanigans with test module names depending on args..
     assert __name__ == 'karlicoss_pymplate.module'
 

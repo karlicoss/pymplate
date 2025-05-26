@@ -1,6 +1,6 @@
 # see https://github.com/karlicoss/pymplate for up-to-date reference
 [project]
-dynamic = ["version"]  # version is managed by setuptools_scm
+dynamic = ["version"]  # version is managed by build backend
 name = "karlicoss_pymplate"
 dependencies = [
 ]
