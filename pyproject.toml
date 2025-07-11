@@ -32,7 +32,8 @@ testing = [
     "pytest",
     "ruff",
     "mypy",
-    "lxml",  # for mypy html coverage
+    "lxml", # for mypy html coverage
+    "ty>=0.0.1a14",
 ]
 
 
