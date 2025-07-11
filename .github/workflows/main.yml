@@ -65,11 +65,20 @@ jobs:
 
 
   pypi:
-    runs-on: ubuntu-latest
+    # Do not run it for PRs/cron schedule etc.
+    # NOTE: release tags are guarded by on: push: tags on the top.
+    if: github.event_name == 'push' && (github.event.ref_type == 'tag' || (github.event.ref == format('refs/heads/{0}', github.event.repository.master_branch)))
+    # Ugh, I tried using matrix or something to explicitly generate only test pypi or prod pypi pipelines.
+    # But github actions is so shit, it's impossible to do any logic at all, e.g. doesn't support conditional matrix, if/else statements for variables etc.
+
     needs: [build] # add all other jobs here
+
+    runs-on: ubuntu-latest
+
     permissions:
       # necessary for Trusted Publishing
       id-token: write
+
     steps:
     # ugh https://github.com/actions/toolkit/blob/main/docs/commands.md#path-manipulation
     - run: echo "$HOME/.local/bin" >> $GITHUB_PATH
@@ -89,11 +98,10 @@ jobs:
 
     - name: 'release to test pypi'
       # always deploy merged master to test pypi
-      if: github.event_name != 'pull_request' && github.event.ref == 'refs/heads/master'
+      if: github.event.ref == format('refs/heads/{0}', github.event.repository.master_branch)
       run: .ci/release-uv --use-test-pypi
 
-    - name: 'release to pypi'
+    - name: 'release to prod pypi'
       # always deploy tags to release pypi
-      # NOTE: release tags are guarded by on: push: tags on the top
-      if: github.event_name != 'pull_request' && startsWith(github.event.ref, 'refs/tags')
+      if: startsWith(github.event.ref, 'refs/tags')
       run: .ci/release-uv
