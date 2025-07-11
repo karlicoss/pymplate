@@ -73,7 +73,7 @@ jobs:
   pypi:
     # Do not run it for PRs/cron schedule etc.
     # NOTE: release tags are guarded by on: push: tags on the top.
-    if: github.event_name == 'push' && (github.event.ref_type == 'tag' || (github.event.ref == format('refs/heads/{0}', github.event.repository.master_branch)))
+    if: github.event_name == 'push' && (startsWith(github.event.ref, 'refs/tags/') || (github.event.ref == format('refs/heads/{0}', github.event.repository.master_branch)))
     # Ugh, I tried using matrix or something to explicitly generate only test pypi or prod pypi pipelines.
     # But github actions is so shit, it's impossible to do any logic at all, e.g. doesn't support conditional matrix, if/else statements for variables etc.
 
@@ -109,5 +109,5 @@ jobs:
 
     - name: 'release to prod pypi'
       # always deploy tags to release pypi
-      if: startsWith(github.event.ref, 'refs/tags')
+      if: startsWith(github.event.ref, 'refs/tags/')
       run: .ci/release-uv
