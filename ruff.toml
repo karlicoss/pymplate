@@ -142,7 +142,7 @@ lint.ignore = [
 ]
 
 
-lint.exclude = [
+extend-exclude = [
     "old/**",
     "tests/testdata/**",
 ]
