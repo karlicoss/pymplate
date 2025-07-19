@@ -33,7 +33,7 @@ testing = [
     "ruff",
     "mypy",
     "lxml", # for mypy html coverage
-    "ty>=0.0.1a14",
+    "ty>=0.0.1a15",
 ]
 
 
