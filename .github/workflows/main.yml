@@ -70,7 +70,7 @@ jobs:
       with:
         fail_ci_if_error: true  # default false
         token: ${{ secrets.CODECOV_TOKEN }}
-        name: mypy-${{ matrix.python-version }}
+        flags: mypy-${{ matrix.python-version }}
         files: .coverage.mypy/cobertura.xml
 
 
