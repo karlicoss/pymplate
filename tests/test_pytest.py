@@ -52,7 +52,9 @@ def run(package: str) -> list[str]:
     # This is until it gets to src dir which is in 'current' directory due to python3 -m pytest and succeeds
     #  , but as a result we end up with src.mypkgs.. names which we don't want
     src_path = str(Path('src').resolve())
-    output = subprocess.check_output(cmd, text=True, stderr=subprocess.STDOUT, env={'PYTHONPATH': src_path, **os.environ})
+    output = subprocess.check_output(
+        cmd, text=True, stderr=subprocess.STDOUT, env={'PYTHONPATH': src_path, **os.environ}
+    )
     return sorted(re.findall(r'RUNNING ([\w.]+)', output))
 
 

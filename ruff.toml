@@ -1,3 +1,5 @@
+line-length = 120  # impacts import sorting
+
 lint.extend-select = [
     "ALL",
 ]
