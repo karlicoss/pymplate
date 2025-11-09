@@ -29,11 +29,11 @@ optional = []
 # On the other hand, it's a bit annoying that it's always included by default? 
 # To make sure it's not included, need to use `uv run --exact --no-default-groups ...`
 testing = [
-    "pytest",
+    "pytest>=9",  # need version 9 for proper namespace package support
     "ruff",
     "mypy",
     "lxml", # for mypy html coverage
-    "ty>=0.0.1a21",
+    "ty>=0.0.1a25",
 ]
 
 
