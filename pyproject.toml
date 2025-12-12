@@ -31,9 +31,12 @@ optional = []
 testing = [
     "pytest>=9",  # need version 9 for proper namespace package support
     "ruff",
+]
+typecheck = [
+    { include-group = "testing" },
     "mypy",
     "lxml", # for mypy html coverage
-    "ty>=0.0.1a25",
+    "ty>=0.0.1a34",
 ]
 
 
