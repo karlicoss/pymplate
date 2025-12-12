@@ -22,7 +22,9 @@ requires-python = ">=3.12"
 
 
 [project.optional-dependencies]
-optional = []
+optional = [
+    "requests",
+]
 
 [dependency-groups]
 # TODO: not sure, on the one hand could just use 'standard' dev dependency group
@@ -31,12 +33,17 @@ optional = []
 testing = [
     "pytest>=9",  # need version 9 for proper namespace package support
     "ruff",
+
+    # example of including optional dependencies in depdency groups
+    "karlicoss_pymplate[optional]",
 ]
 typecheck = [
     { include-group = "testing" },
     "mypy",
     "lxml", # for mypy html coverage
     "ty>=0.0.1a34",
+
+    "types-requests",
 ]
 
 
