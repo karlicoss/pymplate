@@ -18,3 +18,10 @@ def check_doctest() -> None:
     3
     """
     # this doctest should be collected by pytest and run
+
+
+def test_optional_dependency() -> None:
+    # just check that optional dependency is properly installed/type checked
+    import requests
+
+    print(requests.__version__)
