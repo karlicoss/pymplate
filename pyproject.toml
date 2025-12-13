@@ -34,7 +34,7 @@ testing = [
     "pytest>=9",  # need version 9 for proper namespace package support
     "ruff",
 
-    # example of including optional dependencies in depdency groups
+    # example of including optional dependencies in dependency groups
     "karlicoss_pymplate[optional]",
 ]
 typecheck = [
