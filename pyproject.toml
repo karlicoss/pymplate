@@ -6,18 +6,14 @@ dependencies = [
 ]
 requires-python = ">=3.12"
 
-## these need to be set if you're planning to upload to pypi
-# description = "TODO"
-# license = {file = "LICENSE"}
-# authors = [
-#     {name = "Dima Gerasimov (@karlicoss)", email = "karlicoss@gmail.com"},
-# ]
-# maintainers = [
-#     {name = "Dima Gerasimov (@karlicoss)", email = "karlicoss@gmail.com"},
-# ]
-#
-# [project.urls]
-# Homepage = "https://github.com/karlicoss/pymplate"
+## these are only useful for pypi
+description = "Just my 'blueprint' for python projects"  # shows on project page/in search
+license     = {file = "LICENSE.md"}
+authors     = [{name = "Dima Gerasimov (@karlicoss)", email = "karlicoss@gmail.com"}]
+maintainers = [{name = "Dima Gerasimov (@karlicoss)", email = "karlicoss@gmail.com"}]
+
+[project.urls]  # pypi will fetch some github stats/link, so somewhat useful
+Homepage = "https://github.com/karlicoss/pymplate"
 ##
 
 
@@ -41,7 +37,7 @@ typecheck = [
     { include-group = "testing" },
     "mypy",
     "lxml", # for mypy html coverage
-    "ty>=0.0.1a34",
+    "ty>=0.0.8",
 
     "types-requests",
 ]

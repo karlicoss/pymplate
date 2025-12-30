@@ -29,6 +29,7 @@ PACKAGE_NAME = PYPROJECT["project"]["name"]
 def _uv_sync(session: nox.Session, *sync_args: str) -> None:
     session.run_install(
         # TODO hmm this updates lock file in project dir, a bit annoying?..
+        # currently uv doesn't allow custom lock file, see this issue https://github.com/astral-sh/uv/issues/6830
         # also this would prevent parallelism?
         "uv", "sync",
         *sync_args,
