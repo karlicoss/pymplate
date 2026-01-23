@@ -1,7 +1,7 @@
 # see https://github.com/karlicoss/pymplate for up-to-date reference
 
 
-from setuptools import setup, find_namespace_packages  # type: ignore
+from setuptools import setup, find_namespace_packages  # ty: ignore[unresolved-import]
 
 
 def main() -> None:
