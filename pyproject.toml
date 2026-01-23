@@ -8,7 +8,7 @@ requires-python = ">=3.12"
 
 ## these are only useful for pypi
 description = "Just my 'blueprint' for python projects"  # shows on project page/in search
-license     = {file = "LICENSE.md"}
+license     = {file = "LICENSE"}
 authors     = [{name = "Dima Gerasimov (@karlicoss)", email = "karlicoss@gmail.com"}]
 maintainers = [{name = "Dima Gerasimov (@karlicoss)", email = "karlicoss@gmail.com"}]
 
@@ -34,12 +34,13 @@ testing = [
     "karlicoss_pymplate[optional]",
 ]
 typecheck = [
-    { include-group = "testing" },
     "mypy",
     "lxml", # for mypy html coverage
-    "ty>=0.0.8",
+    "ty>=0.0.13",
 
     "types-requests",
+
+    { include-group = "testing" },
 ]
 
 
