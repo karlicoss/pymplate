@@ -12,7 +12,7 @@ if (NOX_BASE := os.environ.get("NOX_BASE")) is not None:
     project_path = project_path.relative_to(project_path.anchor)
     nox.options.envdir = Path(NOX_BASE) / project_path
 
-nox.options.reuse_existing_virtualenvs = True  #  not sure, but this is tox default, so keeping for consistency
+nox.options.reuse_existing_virtualenvs = True  # not sure, but this is tox default, so keeping for consistency
 
 nox.options.error_on_external_run = True  # not sure about this one, consistency with tox for now
 
