@@ -52,7 +52,7 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
       
-    - uses: astral-sh/setup-uv@v7
+    - uses: astral-sh/setup-uv@v8.1.0
       with:
         enable-cache: false  # we don't have lock files during initial CI checkout, so can't use them as cache key
 
@@ -102,7 +102,7 @@ jobs:
       with:
         python-version: '3.12'
 
-    - uses: astral-sh/setup-uv@v7
+    - uses: astral-sh/setup-uv@v8.1.0
       with:
         enable-cache: false  # we don't have lock files during initial CI checkout, so can't use them as cache key
 
