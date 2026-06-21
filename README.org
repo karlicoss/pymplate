@@ -8,7 +8,7 @@ My (somewhat opinionated) Python project template
 
 - uses =pytest= and =mypy= (+coverage) for checks
 - uses =ruff= with some ignore directives to prevent it from being too annoying about the code style
-- relies on [[file:tox.ini][tox]] for running tests and checks in isolation
+- relies on [[file:tox.toml][tox]] for running tests and checks in isolation
 - uses Github Actions for CI
 
   - make sure you can run CI against pull requests from other people (=pull_request= trigger)
