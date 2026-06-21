@@ -79,8 +79,6 @@ commands = [
     [
         "{env_python}", "-m", "pytest",
         "--pyargs", { replace = "ref", of = ["package_name"] },
-
-        # Posargs allow test filtering, e.g. tox ... -- -k test_name.
         { replace = "posargs", default = [], extend = true },
     ],
 ]
@@ -92,16 +90,9 @@ commands = [
     [
         "{env_python}", "-m", "mypy",
         "-p", { replace = "ref", of = ["package_name"] },
-        "--txt-report" , ".coverage.mypy",
-        "--html-report", ".coverage.mypy",
-
-        # This is for GitHub Actions to upload to codecov.io.
-        # Sadly XML coverage crashes on Windows, so we need to disable it.
-        { replace = "if", condition = "env.CI_MYPY_COVERAGE != ''", then = [
-            "--cobertura-xml-report",
-            ".coverage.mypy",
-        ], else = [], extend = true },
-
+        # uncomment if you need coverage
+        # "--txt-report" , ".coverage.mypy",
+        # "--html-report", ".coverage.mypy",
         { replace = "posargs", default = [], extend = true },
     ],
 ]
