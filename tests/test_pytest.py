@@ -35,7 +35,7 @@ class contextlib_chdir(contextlib.AbstractContextManager):
 def fixture() -> Iterator[Path]:
     with TemporaryDirectory() as td:
         root = Path(td)
-        shutil.copy(GIT_ROOT / 'pytest.ini', root / 'pytest.ini')
+        shutil.copy(GIT_ROOT / 'pyproject.toml', root / 'pyproject.toml')
         # conftest isn't necessary anymore! pytest 9 supports it out of box
         # shutil.copy(GIT_ROOT / 'conftest.py', root / 'conftest.py')
         shutil.copytree(THISDIR / 'testdata' / 'src', root / 'src')
