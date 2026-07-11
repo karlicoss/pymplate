@@ -17,20 +17,6 @@ THISDIR = Path(__file__).absolute().parent
 GIT_ROOT = THISDIR.parent
 
 
-# only available since python 3.11
-class contextlib_chdir(contextlib.AbstractContextManager):
-    def __init__(self, path):
-        self.path = path
-        self._old_cwd = []
-
-    def __enter__(self):
-        self._old_cwd.append(Path.cwd())
-        os.chdir(self.path)
-
-    def __exit__(self, *excinfo):
-        os.chdir(self._old_cwd.pop())
-
-
 @contextlib.contextmanager
 def fixture() -> Iterator[Path]:
     with TemporaryDirectory() as td:
@@ -39,7 +25,7 @@ def fixture() -> Iterator[Path]:
         # conftest isn't necessary anymore! pytest 9 supports it out of box
         # shutil.copy(GIT_ROOT / 'conftest.py', root / 'conftest.py')
         shutil.copytree(THISDIR / 'testdata' / 'src', root / 'src')
-        with contextlib_chdir(root):
+        with contextlib.chdir(root):
             yield root
 
 
