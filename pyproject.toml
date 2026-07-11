@@ -36,7 +36,7 @@ testing = [
 ]
 typecheck = [
     "mypy",
-    "lxml", # for mypy html coverage
+    "lxml", # not used by default but keeping for convenience of running mypy html coverage
     "ty",
 
     "types-requests",
@@ -275,36 +275,19 @@ pass_env = [
 # Generally this is more robust and safer, and prevents weird issues later on.
 set_env.PYTHONSAFEPATH = "1"
 
-# Uhh. This is relying on https://github.com/tox-dev/tox-uv and things are a bit confusing...
-# With this runner:
-#   runner = "uv-venv-runner"
-# First of all, we also want to use:
-#   package = "uv-editable"
-# Otherwise default is "editable", in which tox builds a wheel first for some reason?
-# Not sure if that makes much sense.
-# However, the main issue is that it does some sort of hacky dependency extraction from pyproject, i.e.:
-#   tests: install_dependency-groups> .../uv pip install '<packagename>[export]' 'pytest>=9' ruff
-# ...and then installs the actual package:
-#   tests: install_package> .../uv pip install --reinstall -e /code/packagename
-# This is wrong?!
-# The first command would install from PyPI, ignoring optional deps if not found.
-# What we actually want is something like "uv pip install --group -e .".
-# This is the same as this tox issue: https://github.com/tox-dev/tox/issues/3561
-
-# Another option is using this:
+# Relying on https://github.com/tox-dev/tox-uv for the runners here.
+# Using the lock runner as the default since it's the only one supporting tool.uv.sources, which some projects need.
 runner = "uv-venv-lock-runner"
-# However, this requires a lock file to exist.
-# This is slightly annoying because I'm not pushing lock files for my projects.
-# By default this runner checks that running tox would not change the lock file.
-# We can work around that with this setting, so the lock file is created if it
-# does not exist, or updated if needed.
-# NOTE: in addition, this is the only runner supporting tools.uv.sources.
-# Some projects need it.
+# The lock runner requires a lock file, which is slightly annoying since we're not tracking lock files (see .gitignore).
+# By default it would also check that running tox won't change the lock file.
+# With this setting the lock file is created/updated as needed instead:
 uv_sync_locked = false
-# This is a bit annoying.
 # I'm not sure what happens if two tests running in parallel result in different
 # lock files, but I guess it is unlikely.
-# Another option could be to create the lock file on CI before running things.
+#
+# If the project doesn't need tool.uv.sources, a fine alternative (no lock file involved at all) is:
+#   runner = "uv-venv-runner"
+#   package = "uv-editable"  # otherwise the default is "editable", which builds a wheel first for some reason
 
 
 [tool.tox.env.ruff]
