@@ -38,7 +38,10 @@ jobs:
       fail-fast: false
       matrix:
         platform: [ubuntu-latest, macos-latest, windows-latest]
-        python-version: ['3.12', '3.13', '3.14']
+        python-version:
+          - &minimum_python '3.12'
+          - '3.13'
+          - '3.14'
         # vvv just an example of excluding stuff from matrix
         # exclude: [{platform: macos-latest, python-version: '3.6'}]
 
@@ -98,7 +101,7 @@ jobs:
 
     - uses: astral-sh/setup-uv@v8.1.0
       with:
-        python-version: '3.12'
+        python-version: *minimum_python
         enable-cache: false  # we don't have lock files during initial CI checkout, so can't use them as cache key
 
     - name: 'release to ${{ env.TARGET }}'
