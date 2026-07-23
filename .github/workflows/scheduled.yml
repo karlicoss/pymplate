@@ -1,0 +1,19 @@
+# GitHub disables scheduled workflows after 60 days without repository activity: https://docs.github.com/actions/how-tos/manage-workflow-runs/disable-and-enable-workflows
+# Keeping this separate prevents that from disabling push and pull-request CI too: https://github.com/orgs/community/discussions/32197
+
+name: Scheduled CI
+on:
+  schedule:
+    - cron: '31 18 * * 5'  # run every Friday
+
+  # Needed to trigger workflows manually.
+  workflow_dispatch:
+
+
+permissions:
+  contents: read  # repos created before 2023 have write permissions as default. Protects against compromised actions.
+
+
+jobs:
+  ci:
+    uses: ./.github/workflows/main.yml

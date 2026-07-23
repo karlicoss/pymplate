@@ -24,8 +24,8 @@ on:
         required: false
         default: false
 
-  schedule:
-    - cron: '31 18 * * 5'  # run every Friday
+  # Called by scheduled.yml, which explains why the schedule lives separately.
+  workflow_call:
 
 
 permissions:
