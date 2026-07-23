@@ -28,6 +28,10 @@ on:
     - cron: '31 18 * * 5'  # run every Friday
 
 
+permissions:
+  contents: read  # repos created before 2023 have write permissions as default. Protects against compromised actions.
+
+
 jobs:
   build:
     strategy:
@@ -75,8 +79,8 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      # necessary for Trusted Publishing
-      id-token: write
+      contents: read   # necessary to repeat since 'permissions:' replace global ones, not augment
+      id-token: write  # necessary for Trusted Publishing
     env:
       # always deploy merged master to test pypi
       # always deploy tags to release pypi
