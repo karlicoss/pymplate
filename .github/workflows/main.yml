@@ -37,7 +37,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [ubuntu-latest, macos-latest, windows-latest]
+        platform:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
         python-version:
           - &minimum_python '3.12'
           - '3.13'
@@ -56,7 +59,8 @@ jobs:
         submodules: recursive
         fetch-depth: 0  # nicer to have all git history when debugging/for tests
 
-    - uses: astral-sh/setup-uv@v8.1.0
+    # setup-uv doesn't publish floating major/minor tags, so use an exact full tag.
+    - uses: astral-sh/setup-uv@v9.0.0
       with:
         python-version: ${{ matrix.python-version }}
         enable-cache: false  # we don't have lock files during initial CI checkout, so can't use them as cache key
@@ -99,7 +103,8 @@ jobs:
         submodules: recursive
         fetch-depth: 0  # pull all commits to correctly infer vcs version
 
-    - uses: astral-sh/setup-uv@v8.1.0
+    # setup-uv doesn't publish floating major/minor tags, so use an exact full tag.
+    - uses: astral-sh/setup-uv@v9.0.0
       with:
         python-version: *minimum_python
         enable-cache: false  # we don't have lock files during initial CI checkout, so can't use them as cache key
