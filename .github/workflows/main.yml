@@ -54,8 +54,9 @@ jobs:
     # continue-on-error: ${{ matrix.platform == 'windows-latest' }}
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
+        persist-credentials: false
         submodules: recursive
         fetch-depth: 0  # nicer to have all git history when debugging/for tests
 
@@ -98,8 +99,9 @@ jobs:
       name:        ${{ github.ref_type == 'tag' && 'pypi'     || 'testpypi' }}
       url: https://${{ github.ref_type == 'tag' && 'pypi.org' || 'test.pypi.org' }}/project/${{ steps.meta.outputs.pypi_name }}/
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
+        persist-credentials: false
         submodules: recursive
         fetch-depth: 0  # pull all commits to correctly infer vcs version
 
