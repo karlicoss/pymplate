@@ -22,7 +22,7 @@ def fixture() -> Iterator[Path]:
     with TemporaryDirectory() as td:
         root = Path(td)
         shutil.copy(GIT_ROOT / 'pyproject.toml', root / 'pyproject.toml')
-        # conftest isn't necessary anymore! pytest 9 supports it out of box
+        # conftest isn't necessary anymore! pytest 9 supports it out of the box
         # shutil.copy(GIT_ROOT / 'conftest.py', root / 'conftest.py')
         shutil.copytree(THISDIR / 'testdata' / 'src', root / 'src')
         with contextlib.chdir(root):
@@ -36,8 +36,8 @@ def run(package: str) -> list[str]:
     # NOTE: this resolve() here is important for windows!
     # otherwise for some reason sys.path under pytest ends up with something like
     # 'C:\\Users\\RUNNER~1\\...', and that messes up package name discovery
-    # This is until it gets to src dir which is in 'current' directory due to python3 -m pytest and succeeds
-    #  , but as a result we end up with src.mypkgs.. names which we don't want
+    # This eventually succeeds when it gets to the src directory, which is in the current directory due to python3 -m pytest,
+    #   but as a result we end up with names prefixed by src.mypkg., which we don't want.
     src_path = str(Path('src').resolve())
     output = subprocess.check_output(
         cmd, text=True, stderr=subprocess.STDOUT, env={'PYTHONPATH': src_path, **os.environ}

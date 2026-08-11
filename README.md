@@ -35,20 +35,25 @@ For ruff preview checks:
 tox -e ruff -- --preview
 ```
 
-The CI entrypoint is `.ci/run`. It currently runs tox through `uv tool run --with tox-uv`, and CI uses
-it directly:
+For a targeted test run:
 
 ```bash
-bash .ci/run
+tox -e tests -- -k <pattern>
 ```
 
-Prefer direct `tox -e ...` commands for ordinary local development, and check `.ci/run` when changing CI
-or tox behavior.
+`tox` is the supported task runner.
+The `noxfile.py` configuration is experimental and is not part of the normal workflow.
+
+The `.ci/run` entrypoint is for GitHub Actions only.
+It runs tox through `uv tool run --with tox-uv`; use direct `tox -e ...` commands for local development.
+
+The configured `tox-uv` lock runner creates or updates an ignored `uv.lock`.
+The lockfile is deliberately not tracked so CI resolves current dependency versions; do not commit it.
 
 ## Test Layout
 
-`pyproject.toml` intentionally configures pytest to collect all `*.py` files and doctests. This supports
-keeping tests next to implementation modules instead of adding separate files under `tests/`.
+`pyproject.toml` intentionally configures pytest to collect all `*.py` files and doctests.
+Ordinary project tests should live next to implementation modules rather than under `tests/`.
 
 `tests/test_pytest.py` is a self-check for pytest namespace-package discovery. It runs without pytest
 as the outer test runner first, then invokes pytest in a temporary package tree to verify collection
