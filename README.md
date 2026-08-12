@@ -63,6 +63,34 @@ behavior.
 
 The release script is `.ci/release`.
 
+To preview commit-level release notes and open a prefilled GitHub release form without creating a
+tag or release:
+
+```bash
+.ci/prepare-github-release
+```
+
+This fetches the remote default branch and the latest remote release tag, then runs `git-cliff`
+through an ad-hoc Nix invocation.
+Both the generated notes and the GitHub release target are based on the fetched default branch
+rather than the currently checked-out branch.
+By default, the proposed tag increments the minor version and uses today's date in `YYYYMMDD` form
+for the final component. A repository without release tags starts at `v0.1.YYYYMMDD`. If an existing
+tag does not have `vMAJOR.MINOR.SUFFIX` form, pass `--tag` explicitly. The generated release title is
+`<tag>: rolling release`.
+
+Override these defaults with:
+
+```bash
+.ci/prepare-github-release --tag v0.3.20260812 --title 'v0.3.20260812: summary'
+```
+
+To print the preview and URL without opening a browser:
+
+```bash
+.ci/prepare-github-release --no-open
+```
+
 Manual publishing requires:
 
 ```bash

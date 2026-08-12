@@ -248,4 +248,4 @@ tags
 /private/
 
 # for now, deliberately ignoring so CI always runs against latest versions
-uv.lock
+/uv.lock
