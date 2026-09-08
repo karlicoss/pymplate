@@ -275,6 +275,10 @@ pass_env = [
 # Generally this is more robust and safer, and prevents weird issues later on.
 set_env.PYTHONSAFEPATH = "1"
 
+# Useful when a project defines multiple mypy environments that run in parallel.
+# Separate caches avoid SQLite locking errors.
+set_env.MYPY_CACHE_DIR = "{env:MYPY_CACHE_DIR:{tox_root}{/}.mypy_cache}{/}{env_name}"
+
 # Relying on https://github.com/tox-dev/tox-uv for the runners here.
 # This template deliberately defaults to the lock runner even though pymplate itself does not use tool.uv.sources.
 # Projects based on it may use tool.uv.sources, and keeping one runner avoids changing tox semantics later.
