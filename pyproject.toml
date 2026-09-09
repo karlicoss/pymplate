@@ -31,7 +31,6 @@ testing = [
     "pytest",
     "ruff",
 
-    # example of including optional dependencies in dependency groups
     "karlicoss_pymplate[optional]",
 ]
 typecheck = [
