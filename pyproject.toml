@@ -86,17 +86,11 @@ enable_error_code = [
     "unused-awaitable",
 ]
 
-# an example of suppressing
-# [[tool.mypy.overrides]]
-# module = "my.config.repos.pdfannots.pdfannots"
-# ignore_errors = true
 
-
-[tool.ty.analysis]
+[tool.ty.rules]
 # suppressing rules/changing error level goes here
-
-[tool.ty.src]
-# exclude = [...]
+# Catch checks like `if value` on `int | None`, where 0 and None are both falsy.
+truthiness-test-of-none-union = "error"
 
 
 [tool.ruff]
@@ -110,7 +104,7 @@ lint.ignore = [
     "CPY",   # copyright headers
     "D",     # annoying nags about docstrings
     "N",     # pep naming
-    "TCH",   # type checking rules, mostly just suggests moving imports under TYPE_CHECKING
+    "TC",    # type checking rules, mostly just suggests moving imports under TYPE_CHECKING
     "S",     # bandit (security checks) -- tends to be not very useful, lots of nitpicks
     "DTZ",   # datetimes checks -- complaining about missing tz and mostly false positives
     "FIX",   # complains about fixmes/todos -- annoying
@@ -216,7 +210,6 @@ lint.ignore = [
 #       "scratch/**",
 #   ]
 extend-exclude = [
-    "old/**",
     "tests/testdata/**",
 ]
 
@@ -272,6 +265,9 @@ pass_env = [
     # Useful for tests to know they are running under CI.
     "CI",
     "CI_*",
+
+    # Let CI use GitHub annotations for Ruff lint and formatting diagnostics.
+    "RUFF_OUTPUT_FORMAT",
 
     # Respect user's cache dirs to prevent tox from crapping into project dir.
     "PYTHONPYCACHEPREFIX",

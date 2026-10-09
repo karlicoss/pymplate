@@ -9,7 +9,7 @@ import shlex
 import shutil
 import subprocess
 import sys
-from collections.abc import Iterator
+from collections.abc import Generator
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
@@ -18,7 +18,7 @@ GIT_ROOT = THISDIR.parent
 
 
 @contextlib.contextmanager
-def fixture() -> Iterator[Path]:
+def fixture() -> Generator[Path, None, None]:
     with TemporaryDirectory() as td:
         root = Path(td)
         shutil.copy(GIT_ROOT / 'pyproject.toml', root / 'pyproject.toml')
