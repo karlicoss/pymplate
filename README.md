@@ -41,6 +41,12 @@ For a targeted test run:
 tox -e tests -- -k <pattern>
 ```
 
+For pymplate's own pytest discovery checks:
+
+```bash
+tox -e template-tests
+```
+
 `tox` is the supported task runner.
 The `noxfile.py` configuration is experimental and is not part of the normal workflow.
 
@@ -54,10 +60,15 @@ The lockfile is deliberately not tracked so CI resolves current dependency versi
 
 `pyproject.toml` intentionally configures pytest to collect all `*.py` files and doctests.
 Ordinary project tests should live next to implementation modules rather than under `tests/`.
+`tox -e tests` runs those package tests.
 
-`tests/test_pytest.py` is a self-check for pytest namespace-package discovery. It runs without pytest
-as the outer test runner first, then invokes pytest in a temporary package tree to verify collection
-behavior.
+`template_tests/test_pytest_discovery.py` checks the template's pytest namespace-package discovery.
+It runs as a standalone Python script and invokes pytest in a temporary package tree to verify collection behavior.
+The separate `template-tests` tox environment runs these checks and is included in the default CI run.
+
+When copying the template to another project, omit `template_tests/`, the `template-tests` tox environment,
+  its `env_list` entry, and its Ruff fixture exclusion.
+The reusable `tests` environment runs package tests without any template self-checks.
 
 ## Releases
 

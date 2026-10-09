@@ -210,7 +210,7 @@ lint.ignore = [
 #       "scratch/**",
 #   ]
 extend-exclude = [
-    "tests/testdata/**",
+    "template_tests/testdata/**",  # pymplate only: omit this fixture exclusion in derived projects.
 ]
 
 [tool.ruff.format]
@@ -254,7 +254,14 @@ min_version = "4"
 
 # Relies on the correct version of Python installed.
 # We rely on CI for the test matrix.
-env_list = ["ruff", "format", "tests", "mypy", "ty"]
+env_list = [
+    "ruff",
+    "format",
+    "tests",
+    "mypy",
+    "ty",
+    "template-tests",  # pymplate only: omit this environment in derived projects.
+]
 
 # https://github.com/tox-dev/tox/issues/20#issuecomment-247788333
 # Hack to prevent .tox from crapping into the project directory.
@@ -327,9 +334,6 @@ commands = [
 [tool.tox.env.tests]
 dependency_groups = ["testing"]
 commands = [
-    # pymplate specific: check pytest.ini/conftest.
-    ["{env_python}", "tests/test_pytest.py"],
-
     [
         "{env_python}", "-m", "pytest",
         { replace = "posargs", default = [], extend = true },
@@ -358,4 +362,13 @@ commands = [
         "check",
         { replace = "posargs", default = [], extend = true },
     ],
+]
+
+
+# pymplate only: do not copy this environment into derived projects.
+[tool.tox.env.template-tests]
+package = "skip"
+dependency_groups = ["testing"]
+commands = [
+    ["{env_python}", "template_tests/test_pytest_discovery.py"],
 ]
