@@ -7,11 +7,12 @@ dependencies = [
 requires-python = ">=3.12"
 
 ## these are only useful for pypi
-description = "Just my 'blueprint' for python projects"  # shows on project page/in search
-readme      = "README.md"
-license     = {file = "LICENSE"}
-authors     = [{name = "Dima Gerasimov (@karlicoss)", email = "karlicoss@gmail.com"}]
-maintainers = [{name = "Dima Gerasimov (@karlicoss)", email = "karlicoss@gmail.com"}]
+description   = "Just my 'blueprint' for python projects"  # shows on project page/in search
+readme        = "README.md"
+license       = "MIT"
+license-files = ["LICENSE"]
+authors       = [{name = "Dima Gerasimov (@karlicoss)", email = "karlicoss@gmail.com"}]
+maintainers   = [{name = "Dima Gerasimov (@karlicoss)", email = "karlicoss@gmail.com"}]
 
 [project.urls]  # pypi will fetch some github stats/link, so somewhat useful
 Homepage = "https://github.com/karlicoss/pymplate"
