@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-import nox  # ty: ignore[unresolved-import]
+import nox  # ty: ignore[import-not-found]
 
 nox.options.default_venv_backend = "uv"
 
